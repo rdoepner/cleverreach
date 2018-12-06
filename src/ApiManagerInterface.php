@@ -24,6 +24,30 @@ interface ApiManagerInterface
     );
 
     /**
+     * Creates a subscriber for batch updating with flush().
+     *
+     * @param string $email
+     * @param int    $groupId
+     * @param bool   $active
+     * @param array  $attributes
+     * @param array  $globalAttributes
+     */
+    public function addCreateSubscriber(
+        string $email,
+        int $groupId,
+        bool $active = false,
+        array $attributes = [],
+        array $globalAttributes = []
+    );
+
+    /**
+     * Flushes all batched subscription requests.
+     *
+     * @return mixed
+     */
+    public function flush();
+
+    /**
      * Returns a subscriber.
      *
      * @param string   $email
