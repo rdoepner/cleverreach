@@ -12,6 +12,11 @@ class ApiManager implements ApiManagerInterface
     protected $adapter;
 
     /**
+     * @var array
+     */
+    protected $subscriptions = [];
+
+    /**
      * ApiManager constructor.
      *
      * @param HttpAdapter $adapter
@@ -31,19 +36,47 @@ class ApiManager implements ApiManagerInterface
         array $attributes = [],
         array $globalAttributes = []
     ) {
-        $now = time();
+        $subscription = $this->buildSubscribtion($email, $groupId, $active, $attributes, $globalAttributes);
 
         return $this->adapter->action(
             'post',
-            "/v3/groups.json/{$groupId}/receivers",
-            [
-                'email' => $email,
-                'registered' => $now,
-                'activated' => $active ? $now : 0,
-                'attributes' => $attributes,
-                'global_attributes' => $globalAttributes,
-            ]
+            "/v3/groups.json/{$subscription['group']}/receivers",
+            $subscription['user']
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addCreateSubscriber(
+        string $email,
+        int $groupId,
+        bool $active = false,
+        array $attributes = [],
+        array $globalAttributes = []
+    ) {
+        $subscription = $this->buildSubscribtion($email, $groupId, $active, $attributes, $globalAttributes);
+        if (!isset($this->subscriptions[$subscription['group']])) {
+            $this->subscriptions[$subscription['group']] = [];
+        }
+        $this->subscriptions[$subscription['group']][] = $subscription['user'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function flush()
+    {
+        $response = [];
+        foreach ($this->subscriptions as $group => $subscriptions) {
+            $response[$group] = $this->adapter->action(
+                'post',
+                "/v3/groups.json/{$group}/receivers/upsert",
+                $subscriptions
+            );
+        }
+        $this->subscriptions = [];
+        return $response;
     }
 
     /**
@@ -130,5 +163,37 @@ class ApiManager implements ApiManagerInterface
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Builds subscription information.
+     *
+     * @param string $email
+     * @param int $groupId
+     * @param bool $active
+     * @param array $attributes
+     * @param array $globalAttributes
+     *
+     * @return array
+     */
+    protected function buildSubscribtion(
+        string $email,
+        int $groupId,
+        bool $active = false,
+        array $attributes = [],
+        array $globalAttributes = []
+    ) {
+        $now = time();
+
+        return [
+            'group' => $groupId,
+            'user' => [
+                'email' => $email,
+                'registered' => $now,
+                'activated' => $active ? $now : 0,
+                'attributes' => $attributes,
+                'global_attributes' => $globalAttributes,
+            ]
+        ];
     }
 }

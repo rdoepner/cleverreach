@@ -74,6 +74,37 @@ class ApiTest extends TestCase
         $this->assertEquals('john.doe@example.org', $response['email']);
     }
 
+    public function testAddCreateSubscriber()
+    {
+        $groupId = getenv('GROUP_ID');
+        self::$apiManager->addCreateSubscriber(
+            'john.doe.2@example.org',
+            $groupId,
+            false,
+            [
+                'salutation' => 'Mr.',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
+            ]
+        );
+        self::$apiManager->addCreateSubscriber(
+            'jane.doe.2@example.org',
+            $groupId,
+            false,
+            [
+                'salutation' => 'Mr.',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
+            ]
+        );
+        $response = self::$apiManager->flush();
+
+        $this->assertCount(1, $response);
+        $this->assertArrayHasKey($groupId, $response);
+        $this->assertCount(2, $response[$groupId]);
+        $this->assertEquals('insert success', $response[$groupId][0]['status']);
+    }
+
     public function testGetSubscriber()
     {
         $response = self::$apiManager->getSubscriber(
@@ -138,6 +169,7 @@ class ApiTest extends TestCase
 
     public function testDeleteSubscriber()
     {
+        $groupId = getenv('GROUP_ID');
         $response = self::$apiManager->deleteSubscriber(
             'john.doe@example.org',
             getenv('GROUP_ID')
@@ -159,6 +191,15 @@ class ApiTest extends TestCase
                     'message' => 'Not Found: invalid receiver',
                 ],
             ]
+        );
+
+        self::$apiManager->deleteSubscriber(
+            'john.doe.2@example.org',
+            $groupId
+        );
+        self::$apiManager->deleteSubscriber(
+            'jane.doe.2@example.org',
+            $groupId
         );
     }
 }
