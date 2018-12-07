@@ -74,6 +74,9 @@ class ApiTest extends TestCase
         $this->assertEquals('john.doe@example.org', $response['email']);
     }
 
+    /**
+     * @depends testCreateSubscriber
+     */
     public function testGetSubscriber()
     {
         $groupId = getenv('GROUP_ID');
@@ -102,6 +105,9 @@ class ApiTest extends TestCase
         );
     }
 
+    /**
+     * @depends testCreateSubscriber
+     */
     public function testSetSubscriberStatus()
     {
         $groupId = getenv('GROUP_ID');
@@ -138,6 +144,9 @@ class ApiTest extends TestCase
         $this->assertFalse($response['active']);
     }
 
+    /**
+     * @depends testCreateSubscriber
+     */
     public function testDeleteSubscriber()
     {
         $response = self::$apiManager->deleteSubscriber(
