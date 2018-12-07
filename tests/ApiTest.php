@@ -76,9 +76,10 @@ class ApiTest extends TestCase
 
     public function testGetSubscriber()
     {
+        $groupId = getenv('GROUP_ID');
         $response = self::$apiManager->getSubscriber(
             'john.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertArrayHasKey('email', $response);
@@ -86,7 +87,7 @@ class ApiTest extends TestCase
 
         $response = self::$apiManager->getSubscriber(
             'jane.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertArrayHasKey('error', $response);
@@ -103,9 +104,10 @@ class ApiTest extends TestCase
 
     public function testSetSubscriberStatus()
     {
+        $groupId = getenv('GROUP_ID');
         $response = self::$apiManager->setSubscriberStatus(
             'john.doe@example.org',
-            getenv('GROUP_ID'),
+            $groupId,
             true
         );
 
@@ -113,7 +115,7 @@ class ApiTest extends TestCase
 
         $response = self::$apiManager->getSubscriber(
             'john.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertArrayHasKey('active', $response);
@@ -121,7 +123,7 @@ class ApiTest extends TestCase
 
         $response = self::$apiManager->setSubscriberStatus(
             'john.doe@example.org',
-            getenv('GROUP_ID'),
+            $groupId,
             false
         );
 
@@ -129,7 +131,7 @@ class ApiTest extends TestCase
 
         $response = self::$apiManager->getSubscriber(
             'john.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertArrayHasKey('active', $response);
@@ -140,14 +142,14 @@ class ApiTest extends TestCase
     {
         $response = self::$apiManager->deleteSubscriber(
             'john.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertTrue($response);
 
         $response = self::$apiManager->deleteSubscriber(
             'jane.doe@example.org',
-            getenv('GROUP_ID')
+            $groupId
         );
 
         $this->assertArrayHasKey('error', $response);
