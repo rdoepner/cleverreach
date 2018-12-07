@@ -43,7 +43,7 @@ interface ApiManagerInterface
     /**
      * Flushes all batched subscription requests.
      *
-     * @return mixed
+     * @return array
      */
     public function flush();
 
