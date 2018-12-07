@@ -69,7 +69,7 @@ class ApiManager implements ApiManagerInterface
     {
         $response = [];
         foreach ($this->subscriptions as $group => $subscriptions) {
-            $response[] = $this->adapter->action(
+            $response[$group] = $this->adapter->action(
                 'post',
                 "/v3/groups.json/{$group}/receivers/upsert",
                 $subscriptions
