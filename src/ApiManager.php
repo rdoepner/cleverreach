@@ -36,7 +36,7 @@ class ApiManager implements ApiManagerInterface
         array $attributes = [],
         array $globalAttributes = []
     ) {
-        $subscription = $this->buildSubscribtion($email, $groupId, $active = false, $attributes = [], $globalAttributes);
+        $subscription = $this->buildSubscribtion($email, $groupId, $active, $attributes, $globalAttributes);
 
         return $this->adapter->action(
             'post',
@@ -55,7 +55,7 @@ class ApiManager implements ApiManagerInterface
         array $attributes = [],
         array $globalAttributes = []
     ) {
-        $subscription = $this->buildSubscribtion($email, $groupId, $active = false, $attributes = [], $globalAttributes);
+        $subscription = $this->buildSubscribtion($email, $groupId, $active, $attributes, $globalAttributes);
         if (!isset($this->subscriptions[$subscription['group']])) {
             $this->subscriptions[$subscription['group']] = [];
         }
