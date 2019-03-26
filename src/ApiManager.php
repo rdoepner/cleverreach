@@ -191,6 +191,12 @@ class ApiManager implements ApiManagerInterface
     /** @inheritdoc */
     public function getMailingOrders(string $id)
     {
-        return $this->adapter->action('get', "/var/mailings.json/{$id}/orders");
+        return $this->adapter->action('get', "/v3/mailings.json/{$id}/orders");
+    }
+
+    /** @inheritdoc */
+    public function getMailingChannels()
+    {
+        return $this->adapter->action("get", "/v3/mailings/channel.json");
     }
 }
