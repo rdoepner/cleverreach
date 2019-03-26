@@ -96,4 +96,12 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function getMailing(string $id);
+
+    /**
+     * Get links for a specific mailing
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getMailingLinks(string $id);
 }

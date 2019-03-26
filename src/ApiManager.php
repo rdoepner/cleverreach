@@ -44,17 +44,18 @@ class ApiManager implements ApiManagerInterface
         bool $active = false,
         array $attributes = [],
         array $globalAttributes = []
-    ) {
+    )
+    {
         $now = time();
 
         return $this->adapter->action(
             'post',
             "/v3/groups.json/{$groupId}/receivers",
             [
-                'email' => $email,
-                'registered' => $now,
-                'activated' => $active ? $now : 0,
-                'attributes' => $attributes,
+                'email'             => $email,
+                'registered'        => $now,
+                'activated'         => $active ? $now : 0,
+                'attributes'        => $attributes,
                 'global_attributes' => $globalAttributes,
             ]
         );
@@ -93,11 +94,11 @@ class ApiManager implements ApiManagerInterface
             'post',
             "/v3/forms.json/{$formId}/send/activate",
             [
-                'email' => $email,
+                'email'   => $email,
                 'doidata' => array_merge(
                     [
-                        'user_ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
-                        'referer' => $_SERVER['HTTP_REFERER'] ?? 'http://localhost',
+                        'user_ip'    => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+                        'referer'    => $_SERVER['HTTP_REFERER'] ?? 'http://localhost',
                         'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'FakeAgent/2.0 (Ubuntu/Linux)',
                     ],
                     $options
@@ -115,11 +116,11 @@ class ApiManager implements ApiManagerInterface
             'post',
             "/v3/forms.json/{$formId}/send/deactivate",
             [
-                'email' => $email,
+                'email'   => $email,
                 'doidata' => array_merge(
                     [
-                        'user_ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
-                        'referer' => $_SERVER['HTTP_REFERER'] ?? 'http://localhost',
+                        'user_ip'    => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
+                        'referer'    => $_SERVER['HTTP_REFERER'] ?? 'http://localhost',
                         'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'FakeAgent/2.0 (Ubuntu/Linux)',
                     ],
                     $options
@@ -158,15 +159,15 @@ class ApiManager implements ApiManagerInterface
             "state" => $state,
         ];
 
-        if($limit > 0) $params["limit"] = $limit;
-        if($channel_id) $params["channel_id"] = $channel_id;
-        if($end > 0) {
+        if ($limit > 0) $params["limit"] = $limit;
+        if ($channel_id) $params["channel_id"] = $channel_id;
+        if ($end > 0) {
             $params["start"] = $start;
             $params["end"] = $end;
         }
 
         $data = $this->adapter->action('get', $url, $params);
-        if($state == self::MAILING_STATE_ALL) return $data;
+        if ($state == self::MAILING_STATE_ALL) return $data;
 
         return $data[$state];
     }
@@ -178,5 +179,14 @@ class ApiManager implements ApiManagerInterface
     {
         return $this->adapter->action('get', "/v3/mailings.json/{$id}");
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMailingLinks(string $id)
+    {
+        return $this->adapter->action('get', "/v3/mailings.json/{$id}/links");
+    }
+
 
 }
