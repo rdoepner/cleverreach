@@ -78,6 +78,8 @@ interface ApiManagerInterface
 
 
     /**
+     * Get list of mailings
+     *
      * @param int $limit
      * @param string $state
      * @param string $channel_id
@@ -86,4 +88,12 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function getMailings(int $limit = 25, string $state = "all", string $channel_id = "", int $start = 0, int $end = 0);
+
+    /**
+     * Get a specific mailing
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getMailing(string $id);
 }

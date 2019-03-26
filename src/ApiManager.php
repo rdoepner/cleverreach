@@ -165,7 +165,18 @@ class ApiManager implements ApiManagerInterface
             $params["end"] = $end;
         }
 
-        return $this->adapter->action('get', $url, $params);
+        $data = $this->adapter->action('get', $url, $params);
+        if($state == self::MAILING_STATE_ALL) return $data;
+
+        return $data[$state];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMailing(string $id)
+    {
+        return $this->adapter->action('get', "/v3/mailings.json/{$id}");
     }
 
 }
