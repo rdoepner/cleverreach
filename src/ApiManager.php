@@ -199,4 +199,10 @@ class ApiManager implements ApiManagerInterface
     {
         return $this->adapter->action("get", "/v3/mailings/channel.json");
     }
+
+    /** @inheritdoc */
+    public function getMailingChannel(string $id)
+    {
+        return $this->adapter->action("get", "/v3/mailings/channel.json/{$id}");
+    }
 }

@@ -119,4 +119,12 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function getMailingChannels();
+
+    /**
+     * Get details of mailing channel
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getMailingChannel(string $id);
 }
