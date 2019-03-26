@@ -75,4 +75,15 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function deleteSubscriber(string $email, int $groupId);
+
+
+    /**
+     * @param int $limit
+     * @param string $state
+     * @param string $channel_id
+     * @param int $start
+     * @param int $end
+     * @return mixed
+     */
+    public function getMailings(int $limit = 25, string $state = "all", string $channel_id = "", int $start = 0, int $end = 0);
 }

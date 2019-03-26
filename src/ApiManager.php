@@ -6,6 +6,20 @@ use rdoepner\CleverReach\Http\AdapterInterface as HttpAdapter;
 
 class ApiManager implements ApiManagerInterface
 {
+    const MAILING_STATE_ALL = "all";
+    const MAILING_STATE_FINISHED = "finished";
+    const MAILING_STATE_DRAFT = "draft";
+    const MAILING_STATE_WAITING = "waiting";
+    const MAILING_STATE_RUNNING = "running";
+
+    const MAILING_STATES = [
+        self::MAILING_STATE_ALL,
+        self::MAILING_STATE_FINISHED,
+        self::MAILING_STATE_DRAFT,
+        self::MAILING_STATE_WAITING,
+        self::MAILING_STATE_RUNNING,
+    ];
+
     /**
      * @var HttpAdapter
      */
@@ -131,4 +145,27 @@ class ApiManager implements ApiManagerInterface
     {
         return $this->adapter;
     }
+
+    /** @inheritdoc
+     * @throws \Exception
+     */
+    public function getMailings(int $limit = 0, string $state = "all", string $channel_id = "", int $start = 0, int $end = 0)
+    {
+        if (!in_array($state, self::MAILING_STATES)) throw new \Exception("Invalid state requested.");
+
+        $url = "/v3/mailings.json/";
+        $params = [
+            "state" => $state,
+        ];
+
+        if($limit > 0) $params["limit"] = $limit;
+        if($channel_id) $params["channel_id"] = $channel_id;
+        if($end > 0) {
+            $params["start"] = $start;
+            $params["end"] = $end;
+        }
+
+        return $this->adapter->action('get', $url, $params);
+    }
+
 }
