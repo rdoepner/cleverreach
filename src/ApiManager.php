@@ -169,7 +169,7 @@ class ApiManager implements ApiManagerInterface
 
         $data = $this->adapter->action('get', $url, $params);
 
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         if ($state == self::MAILING_STATE_ALL) return $data;
 
@@ -183,7 +183,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailing(string $id)
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -195,7 +195,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingLinks(string $id)
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/links");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -206,7 +206,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingOrders(string $id)
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/orders");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -217,7 +217,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingChannels()
     {
         $data = $this->adapter->action("get", "/v3/mailings/channel.json");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -228,8 +228,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingChannel(string $id)
     {
         $data = $this->adapter->action("get", "/v3/mailings/channel.json/{$id}");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
-
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
