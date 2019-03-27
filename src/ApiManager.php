@@ -2,6 +2,7 @@
 
 namespace rdoepner\CleverReach;
 
+use Exception;
 use rdoepner\CleverReach\Http\AdapterInterface as HttpAdapter;
 
 class ApiManager implements ApiManagerInterface
@@ -148,11 +149,11 @@ class ApiManager implements ApiManagerInterface
     }
 
     /** @inheritdoc
-     * @throws \Exception
+     * @throws Exception
      */
     public function getMailings(int $limit = 0, string $state = "all", string $channel_id = "", int $start = 0, int $end = 0)
     {
-        if (!in_array($state, self::MAILING_STATES)) throw new \Exception("Invalid state requested.");
+        if (!in_array($state, self::MAILING_STATES)) throw new Exception("Invalid state requested.");
 
         $url = "/v3/mailings.json/";
         $params = [
@@ -167,6 +168,9 @@ class ApiManager implements ApiManagerInterface
         }
 
         $data = $this->adapter->action('get', $url, $params);
+
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
         if ($state == self::MAILING_STATE_ALL) return $data;
 
         return $data[$state];
@@ -174,35 +178,59 @@ class ApiManager implements ApiManagerInterface
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function getMailing(string $id)
     {
-        return $this->adapter->action('get', "/v3/mailings.json/{$id}");
+        $data = $this->adapter->action('get', "/v3/mailings.json/{$id}");
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
+        return $data;
     }
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function getMailingLinks(string $id)
     {
-        return $this->adapter->action('get', "/v3/mailings.json/{$id}/links");
+        $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/links");
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
+        return $data;
     }
 
-    /** @inheritdoc */
+    /** @inheritdoc
+     * @throws Exception
+     */
     public function getMailingOrders(string $id)
     {
-        return $this->adapter->action('get', "/v3/mailings.json/{$id}/orders");
+        $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/orders");
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
+        return $data;
     }
 
-    /** @inheritdoc */
+    /** @inheritdoc
+     * @throws Exception
+     */
     public function getMailingChannels()
     {
-        return $this->adapter->action("get", "/v3/mailings/channel.json");
+        $data = $this->adapter->action("get", "/v3/mailings/channel.json");
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
+        return $data;
     }
 
-    /** @inheritdoc */
+    /** @inheritdoc
+     * @throws Exception
+     */
     public function getMailingChannel(string $id)
     {
-        return $this->adapter->action("get", "/v3/mailings/channel.json/{$id}");
+        $data = $this->adapter->action("get", "/v3/mailings/channel.json/{$id}");
+        if(!empty($data['error'])) throw new Exception($data["error"]["message"]);
+
+
+        return $data;
     }
 }
