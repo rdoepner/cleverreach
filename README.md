@@ -112,3 +112,44 @@ if (true === $response) {
     // ...
 }
 ```
+
+**Examples for reading Mailings**
+```php
+// Get a list of all Mailings
+// You can provide a state, i.e. draft
+$mailings = $apiManager->getMailings(0, ApiManager::MAILING_STATE_DRAFT);
+
+// Get a specific Mailing
+// returns a Mailing Object
+$mailing = $apiManager->getMailing(MAILING_ID);
+
+// Get Specific Mailing details
+$mailingLinks = $apiManager->getMailingLinks(MAILING_ID);
+$mailingOrders = $apiManager->getMailingOrders(MAILING_ID);
+$mailingChannels = $apiManager->getMailingChannels();
+$mailingChannel = $apiManager->getMailingChannel(CHANNEL_ID);
+```
+
+**Update a Mailing**
+```php
+// Read one for updating
+$mailing = $apiManager->getMailing(MAILING_ID);
+
+// Create a fresh Mailing and Content instance with no data
+$updatedMailing = new Mailing();
+$content = new MailingContent();
+
+// Get HTML content from "old"
+$html = $mailingData->getContent()->getHtml();
+
+// Inject a update message after body tag
+$date = date(DATE_W3C);
+$html = preg_replace("/(<body.*?>)/", "\$1\n<div>Automated update at {$date}</div>", $html);
+
+// Place into Content entity and update Mailings content
+$content->setHtml($html);
+$updatedMailing->setContent($content);
+
+// Update request (PUT)
+$apiManager->updateMailing($updatedMailing);
+```

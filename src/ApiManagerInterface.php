@@ -2,6 +2,8 @@
 
 namespace rdoepner\CleverReach;
 
+use rdoepner\CleverReach\Model\Mailing;
+
 interface ApiManagerInterface
 {
     /**
@@ -93,9 +95,9 @@ interface ApiManagerInterface
      * Get a specific mailing
      *
      * @param string $id
-     * @return mixed
+     * @return Mailing
      */
-    public function getMailing(string $id);
+    public function getMailing(string $id) : Mailing;
 
     /**
      * Get links for a specific mailing
@@ -127,4 +129,12 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function getMailingChannel(string $id);
+
+    /**
+     * Change an existing mailing
+     *
+     * @param Mailing $mailing
+     * @return mixed
+     */
+    public function updateMailing(Mailing $mailing);
 }

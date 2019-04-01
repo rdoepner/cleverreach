@@ -4,6 +4,10 @@ namespace rdoepner\CleverReach;
 
 use Exception;
 use rdoepner\CleverReach\Http\AdapterInterface as HttpAdapter;
+use rdoepner\CleverReach\Model\Mailing;
+use rdoepner\CleverReach\Model\MailingContent;
+use rdoepner\CleverReach\Model\MailingReceivers;
+use rdoepner\CleverReach\Model\MailingSettings;
 
 class ApiManager implements ApiManagerInterface
 {
@@ -169,7 +173,7 @@ class ApiManager implements ApiManagerInterface
 
         $data = $this->adapter->action('get', $url, $params);
 
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         if ($state == self::MAILING_STATE_ALL) return $data;
 
@@ -180,12 +184,36 @@ class ApiManager implements ApiManagerInterface
      * @inheritdoc
      * @throws Exception
      */
-    public function getMailing(string $id)
+    public function getMailing(string $id) : Mailing
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
-        return $data;
+        $mailing = new Mailing();
+        $mailing
+            ->setId($data["id"])
+            ->setName($data["name"])
+            ->setSubject($data["subject"])
+            ->setSenderName($data["sender_name"])
+            ->setSenderEmail($data["sender_email"]);
+
+        $content = new MailingContent();
+        if($data["is_html"]) $content->setHtml($data["body_html"]);
+        if($data["is_text"]) $content->setText($data["body_text"]);
+                if($data["is_html"] && $data["is_text"]) $content->setType(MailingContent::TYPE_HTML_AND_TEXT);
+        elseif($data["is_html"]) $content->setType(MailingContent::TYPE_HTML);
+        else $content->setType(MailingContent::TYPE_TEXT);
+        $mailing->setContent($content);
+
+        $receivers = new MailingReceivers();
+        if(!empty($data["mailing_groups"]["group_ids"])) $receivers->setGroups($data["mailing_groups"]["group_ids"]);
+        $mailing->setReceivers($receivers);
+
+        $settings = new MailingSettings();
+        $settings->setCategoryId($data["category_id"]);
+        $mailing->setSettings($settings);
+
+        return $mailing;
     }
 
     /**
@@ -195,7 +223,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingLinks(string $id)
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/links");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -206,7 +234,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingOrders(string $id)
     {
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}/orders");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -217,7 +245,7 @@ class ApiManager implements ApiManagerInterface
     public function getMailingChannels()
     {
         $data = $this->adapter->action("get", "/v3/mailings/channel.json");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
     }
@@ -228,8 +256,15 @@ class ApiManager implements ApiManagerInterface
     public function getMailingChannel(string $id)
     {
         $data = $this->adapter->action("get", "/v3/mailings/channel.json/{$id}");
-        if(!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
+        if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
         return $data;
+    }
+
+    /** @inheritDoc */
+    public function updateMailing(Mailing $mailing)
+    {
+        $data = json_encode($mailing);
+        $this->adapter->action("put", "/v3/mailings.json/{$mailing->getId()}", $data);
     }
 }
