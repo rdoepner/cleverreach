@@ -136,7 +136,7 @@ $mailingChannel = $apiManager->getMailingChannel(CHANNEL_ID);
 $mailing = $apiManager->getMailing(MAILING_ID);
 
 // Create a fresh Mailing and Content instance with no data
-$updatedMailing = new Mailing();
+$updatedMailing = new Mailing(MAILING_ID);
 $content = new MailingContent();
 
 // Get HTML content from "old"

@@ -189,9 +189,8 @@ class ApiManager implements ApiManagerInterface
         $data = $this->adapter->action('get', "/v3/mailings.json/{$id}");
         if (!empty($data['error'])) throw new Exception($data["error"]["message"], $data["error"]["code"]);
 
-        $mailing = new Mailing();
+        $mailing = new Mailing($data["id"]);
         $mailing
-            ->setId($data["id"])
             ->setName($data["name"])
             ->setSubject($data["subject"])
             ->setSenderName($data["sender_name"])

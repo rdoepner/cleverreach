@@ -15,6 +15,11 @@ class Mailing extends TrackableChanges
 
     protected $trackChanges = [];
 
+    public function __construct(string $id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return string
      */
