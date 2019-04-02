@@ -263,7 +263,7 @@ class ApiManager implements ApiManagerInterface
     /** @inheritDoc */
     public function updateMailing(Mailing $mailing)
     {
-        $data = json_encode($mailing);
+        $data = (array)json_decode(json_encode($mailing));
         $this->adapter->action("put", "/v3/mailings.json/{$mailing->getId()}", $data);
     }
 }
