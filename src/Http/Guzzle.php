@@ -45,7 +45,7 @@ class Guzzle extends Client implements AdapterInterface, LoggerAwareInterface
         if ($logger) {
             $this->setLogger($logger);
         }
-    }
+    }/** @noinspection PhpHierarchyChecksInspection */
 
     /**
      * {@inheritdoc}
