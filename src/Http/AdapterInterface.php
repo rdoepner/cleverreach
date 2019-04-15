@@ -1,6 +1,6 @@
 <?php
 
-namespace rdoepner\CleverReach\Http;
+namespace markuszeller\CleverReach\Http;
 
 interface AdapterInterface
 {

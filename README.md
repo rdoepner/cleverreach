@@ -2,10 +2,12 @@
 
 This library makes it easy to interact with the CleverReach REST API v3.
 
+_Forked from https://github.com/rdoepner/cleverreach. Moved to own namespace, because pull requests weren't merged nor any other reaction from author._
+
 ## Installation
 
 ```bash
-composer require rdoepner/cleverreach
+composer require markuszeller/cleverreach
 ```
 
 ## Usage
@@ -13,8 +15,8 @@ composer require rdoepner/cleverreach
 **Get an access token**
 
 ```php
-use rdoepner\CleverReach\ApiManager;
-use rdoepner\CleverReach\Http\Guzzle as HttpAdapter;
+use markuszeller\CleverReach\ApiManager;
+use markuszeller\CleverReach\Http\Guzzle as HttpAdapter;
 
 // Create an HTTP adapter
 $httpAdapter = new HttpAdapter();
@@ -30,8 +32,8 @@ if (isset($response['access_token'])) {
 **Initialize an API manager**
 
 ```php
-use rdoepner\CleverReach\ApiManager;
-use rdoepner\CleverReach\Http\Guzzle as HttpAdapter;
+use markuszeller\CleverReach\ApiManager;
+use markuszeller\CleverReach\Http\Guzzle as HttpAdapter;
 
 // Create an HTTP adapter
 $httpAdapter = new HttpAdapter(

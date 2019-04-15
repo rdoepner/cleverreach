@@ -1,13 +1,13 @@
 <?php
 
-namespace rdoepner\CleverReach;
+namespace markuszeller\CleverReach;
 
 use Exception;
-use rdoepner\CleverReach\Http\AdapterInterface as HttpAdapter;
-use rdoepner\CleverReach\Model\Mailing;
-use rdoepner\CleverReach\Model\MailingContent;
-use rdoepner\CleverReach\Model\MailingReceivers;
-use rdoepner\CleverReach\Model\MailingSettings;
+use markuszeller\CleverReach\Http\AdapterInterface as HttpAdapter;
+use markuszeller\CleverReach\Model\Mailing;
+use markuszeller\CleverReach\Model\MailingContent;
+use markuszeller\CleverReach\Model\MailingReceivers;
+use markuszeller\CleverReach\Model\MailingSettings;
 
 class ApiManager implements ApiManagerInterface
 {
@@ -46,7 +46,7 @@ class ApiManager implements ApiManagerInterface
     public function createSubscriber(
         string $email,
         int $groupId,
-        bool $active = false,
+        bool $active = null,
         array $attributes = [],
         array $globalAttributes = []
     )

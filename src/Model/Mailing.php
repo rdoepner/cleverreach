@@ -1,6 +1,6 @@
 <?php
 
-namespace rdoepner\CleverReach\Model;
+namespace markuszeller\CleverReach\Model;
 
 class Mailing extends TrackableChanges
 {

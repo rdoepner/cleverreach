@@ -1,8 +1,8 @@
 <?php
 
-namespace rdoepner\CleverReach;
+namespace markuszeller\CleverReach;
 
-use rdoepner\CleverReach\Model\Mailing;
+use markuszeller\CleverReach\Model\Mailing;
 
 interface ApiManagerInterface
 {
@@ -20,7 +20,7 @@ interface ApiManagerInterface
     public function createSubscriber(
         string $email,
         int $groupId,
-        bool $active = false,
+        bool $active = null,
         array $attributes = [],
         array $globalAttributes = []
     );

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace rdoepner\CleverReach\Model;
+namespace markuszeller\CleverReach\Model;
 
 class MailingSettings extends TrackableChanges
 {
@@ -33,7 +33,7 @@ class MailingSettings extends TrackableChanges
      * @param string $editor
      * @return MailingSettings
      */
-    public function setEditor(string $editor = self::EDITOR_ADVANCED)
+    public function setEditor(string $editor = null)
     {
         $this->trackChanges[] = "editor";
 
