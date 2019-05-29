@@ -75,4 +75,24 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function deleteSubscriber(string $email, int $groupId);
+
+    /**
+     * Get Attributes.
+     *
+     * @param int    $groupId
+     *
+     * @return mixed
+     */
+    public function getAttributes(int $groupId = 0);
+
+    /**
+     * Get Attributes.
+     *
+     * @param int    $poolId - subscriber id
+     * @param int    $attributeId - attribute id
+     * @param string $value - attribute value
+     *
+     * @return mixed
+     */
+    public function updateSubscriberAttributes(int $poolId = 0, int $attributeId, string $value);
 }
