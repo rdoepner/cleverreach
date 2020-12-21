@@ -113,6 +113,26 @@ if (true === $response) {
 }
 ```
 
+**Get subscriber Attributes**
+
+```php
+$response = $apiManager->getAttributes('<GROUP_ID>');
+
+if (true === $response) {
+    // ...
+}
+```
+
+**Update subscriber Attributes**
+
+```php
+$response = $apiManager->updateSubscriberAttributes('<POOL_ID>', '<ATTRIBUTE_ID>', '<NEW_VALUE>');
+
+if (true === $response) {
+    // ...
+}
+```
+
 **Replace subscriber Tags**
 
 ```php
