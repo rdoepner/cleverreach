@@ -112,3 +112,13 @@ if (true === $response) {
     // ...
 }
 ```
+
+**Replace subscriber Tags**
+
+```php
+$response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>','<TAG2>',...]);
+
+if (true === $response) {
+    // ...
+}
+```
