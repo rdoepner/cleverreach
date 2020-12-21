@@ -86,7 +86,7 @@ interface ApiManagerInterface
     public function getAttributes(int $groupId = 0);
 
     /**
-     * Get Attributes.
+     * Update Attributes.
      *
      * @param int    $poolId - subscriber id
      * @param int    $attributeId - attribute id
@@ -95,4 +95,15 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function updateSubscriberAttributes(int $poolId = 0, int $attributeId, string $value);
+
+    /**
+     * Get Attributes.
+     *
+     * @param string $email
+     * @param int    $groupId
+     * @param array  $value - the new Tags replace the existing ones! Use getSubscriber to retrieve existing Tags before
+     *
+     * @return mixed
+     */
+    public function replaceSubscriberTags(string $email, int $groupId = 0, array $value);
 }

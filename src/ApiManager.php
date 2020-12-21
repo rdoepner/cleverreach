@@ -145,6 +145,20 @@ class ApiManager implements ApiManagerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function replaceSubscriberTags(string $email, int $groupId = 0, array $value)
+    {
+        return $this->adapter->action(
+            'put',
+            "/v3/groups.json/{$groupId}/receivers/{$email}",
+            [
+                'tags' => $value,
+            ]
+        );
+    }
+
+    /**
      * Returns the HTTP adapter.
      *
      * @return HttpAdapter
