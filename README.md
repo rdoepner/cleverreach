@@ -96,7 +96,7 @@ if (isset($response['id'])) {
 **Set active status of a subscriber**
 
 ```php
-$response = $apiManager->getSubscriber('<EMAIL>', '<GROUP_ID>', '<TRUE_OR_FALSE>');
+$response = $apiManager->setSubscriberStatus('<EMAIL>', '<GROUP_ID>', '<TRUE_OR_FALSE>');
 
 if (true === $response) {
     // ...
