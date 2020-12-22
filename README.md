@@ -63,7 +63,7 @@ if (isset($response['id'])) {
 }
 ```
 
-**Trigger Double-Opt-In email for an inactive subscriber**
+**Trigger the Double-Opt-In email for an inactive subscriber**
 
 ```php
 $response = $apiManager->triggerDoubleOptInEmail('<EMAIL>', '<FORM_ID>');
@@ -73,7 +73,7 @@ if (isset($response['success'])) {
 }
 ```
 
-**Trigger Double-Opt-Out email for an active subscriber**
+**Trigger the Double-Opt-Out email for an active subscriber**
 
 ```php
 $response = $apiManager->triggerDoubleOptOutEmail('<EMAIL>', '<FORM_ID>');
@@ -93,7 +93,7 @@ if (isset($response['id'])) {
 }
 ```
 
-**Set active status of a subscriber**
+**Sets the active status of a subscriber**
 
 ```php
 $response = $apiManager->setSubscriberStatus('<EMAIL>', '<GROUP_ID>', '<TRUE_OR_FALSE>');
@@ -103,7 +103,7 @@ if (true === $response) {
 }
 ```
 
-**Delete subscriber**
+**Delete a subscriber**
 
 ```php
 $response = $apiManager->deleteSubscriber('<EMAIL>', '<GROUP_ID>');
@@ -113,7 +113,7 @@ if (true === $response) {
 }
 ```
 
-**Get subscriber Attributes**
+**Get attributes**
 
 ```php
 $response = $apiManager->getAttributes('<GROUP_ID>');
@@ -123,7 +123,7 @@ if (true === $response) {
 }
 ```
 
-**Update subscriber Attributes**
+**Update the attributes of a subscriber**
 
 ```php
 $response = $apiManager->updateSubscriberAttributes('<POOL_ID>', '<ATTRIBUTE_ID>', '<VALUE>');
@@ -133,7 +133,7 @@ if (true === $response) {
 }
 ```
 
-**Replace subscriber Tags**
+**Replace the tags of a subscriber**
 
 ```php
 $response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>', '<TAG2>', ...]);
