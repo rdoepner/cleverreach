@@ -126,7 +126,7 @@ if (true === $response) {
 **Update subscriber Attributes**
 
 ```php
-$response = $apiManager->updateSubscriberAttributes('<POOL_ID>', '<ATTRIBUTE_ID>', '<NEW_VALUE>');
+$response = $apiManager->updateSubscriberAttributes('<POOL_ID>', '<ATTRIBUTE_ID>', '<VALUE>');
 
 if (true === $response) {
     // ...
@@ -136,7 +136,7 @@ if (true === $response) {
 **Replace subscriber Tags**
 
 ```php
-$response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>','<TAG2>',...]);
+$response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>', '<TAG2>', ...]);
 
 if (true === $response) {
     // ...

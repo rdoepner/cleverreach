@@ -133,7 +133,7 @@ class ApiManager implements ApiManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function updateSubscriberAttributes(int $poolId = 0, int $attributeId, string $value)
+    public function updateSubscriberAttributes(int $poolId, int $attributeId, string $value)
     {
         return $this->adapter->action(
             'put',
@@ -147,13 +147,13 @@ class ApiManager implements ApiManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function replaceSubscriberTags(string $email, int $groupId = 0, array $value)
+    public function replaceSubscriberTags(string $email, int $groupId, array $tags)
     {
         return $this->adapter->action(
             'put',
             "/v3/groups.json/{$groupId}/receivers/{$email}",
             [
-                'tags' => $value,
+                'tags' => $tags,
             ]
         );
     }

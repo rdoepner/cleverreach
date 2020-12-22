@@ -77,33 +77,36 @@ interface ApiManagerInterface
     public function deleteSubscriber(string $email, int $groupId);
 
     /**
-     * Get Attributes.
+     * Get attributes.
      *
      * @param int    $groupId
      *
      * @return mixed
      */
-    public function getAttributes(int $groupId = 0);
+    public function getAttributes(int $groupId);
 
     /**
-     * Update Attributes.
+     * Update the attributes of a subscriber.
      *
-     * @param int    $poolId - subscriber id
-     * @param int    $attributeId - attribute id
-     * @param string $value - attribute value
+     * @param int    $poolId
+     * @param int    $attributeId
+     * @param string $value
      *
      * @return mixed
      */
-    public function updateSubscriberAttributes(int $poolId = 0, int $attributeId, string $value);
+    public function updateSubscriberAttributes(int $poolId, int $attributeId, string $value);
 
     /**
-     * Get Attributes.
+     * Replace the tags of a subscriber.
+     *
+     * The new tags replace the existing ones! Use getSubscriber() to retrieve
+     * existing tags before.
      *
      * @param string $email
      * @param int    $groupId
-     * @param array  $value - the new Tags replace the existing ones! Use getSubscriber to retrieve existing Tags before
+     * @param array  $tags
      *
      * @return mixed
      */
-    public function replaceSubscriberTags(string $email, int $groupId = 0, array $value);
+    public function replaceSubscriberTags(string $email, int $groupId, array $tags);
 }
