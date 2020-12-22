@@ -123,6 +123,42 @@ class ApiManager implements ApiManagerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getAttributes(int $groupId = 0)
+    {
+        return $this->adapter->action('get', "/v3/attributes.json?group_id={$groupId}");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateSubscriberAttributes(int $poolId, int $attributeId, string $value)
+    {
+        return $this->adapter->action(
+            'put',
+            "/v3/receivers.json/{$poolId}/attributes/{$attributeId}",
+            [
+                'value' => $value,
+            ]
+        );    
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function replaceSubscriberTags(string $email, int $groupId, array $tags)
+    {
+        return $this->adapter->action(
+            'put',
+            "/v3/groups.json/{$groupId}/receivers/{$email}",
+            [
+                'tags' => $tags,
+            ]
+        );
+    }
+
+    /**
      * Returns the HTTP adapter.
      *
      * @return HttpAdapter

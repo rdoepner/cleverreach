@@ -96,7 +96,7 @@ if (isset($response['id'])) {
 **Set active status of a subscriber**
 
 ```php
-$response = $apiManager->getSubscriber('<EMAIL>', '<GROUP_ID>', '<TRUE_OR_FALSE>');
+$response = $apiManager->setSubscriberStatus('<EMAIL>', '<GROUP_ID>', '<TRUE_OR_FALSE>');
 
 if (true === $response) {
     // ...
@@ -107,6 +107,36 @@ if (true === $response) {
 
 ```php
 $response = $apiManager->deleteSubscriber('<EMAIL>', '<GROUP_ID>');
+
+if (true === $response) {
+    // ...
+}
+```
+
+**Get subscriber Attributes**
+
+```php
+$response = $apiManager->getAttributes('<GROUP_ID>');
+
+if (true === $response) {
+    // ...
+}
+```
+
+**Update subscriber Attributes**
+
+```php
+$response = $apiManager->updateSubscriberAttributes('<POOL_ID>', '<ATTRIBUTE_ID>', '<VALUE>');
+
+if (true === $response) {
+    // ...
+}
+```
+
+**Replace subscriber Tags**
+
+```php
+$response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>', '<TAG2>', ...]);
 
 if (true === $response) {
     // ...
