@@ -1,6 +1,7 @@
 /.env.local
 /.env.*.local
 /.idea/
+/.ddev/
 /.php_cs
 /.php_cs.cache
 /composer.lock
