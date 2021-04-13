@@ -12,6 +12,8 @@ interface ApiManagerInterface
      * @param bool   $active
      * @param array  $attributes
      * @param array  $globalAttributes
+     * @param string $source
+     * @param array  $tags
      *
      * @return mixed
      */
@@ -20,7 +22,30 @@ interface ApiManagerInterface
         int $groupId,
         bool $active = false,
         array $attributes = [],
-        array $globalAttributes = []
+        array $globalAttributes = [],
+        string $source = null,
+        array $tags = []
+    );
+
+    /**
+     * Update a subscriber.
+     *
+     * @param string $email
+     * @param int    $groupId
+     * @param array  $attributes
+     * @param array  $globalAttributes
+     * @param string $source
+     * @param array  $tags
+     *
+     * @return mixed
+     */
+    public function updateSubscriber(
+        string $email,
+        int $groupId,
+        array $attributes = [],
+        array $globalAttributes = [],
+        string $source = null,
+        array $tags = []
     );
 
     /**

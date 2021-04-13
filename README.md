@@ -55,7 +55,31 @@ $response = $apiManager->createSubscriber(
         'salutation' => 'Mr.',
         'firstname' => 'John',
         'lastname' => 'Doe',
-    ]
+    ],
+    [], // global attributes
+    'Source',
+    ['tagX'] // tags
+);
+
+if (isset($response['id'])) {
+    // ...
+}
+```
+
+**Update a subscriber**
+
+```php
+$response = $apiManager->updateSubscriber(
+    '<EMAIL>',
+    '<GROUP_ID>',
+    [
+        'salutation' => 'Mr.',
+        'firstname' => 'John',
+        'lastname' => 'Doe',
+    ],
+    [], // global attributes
+    'Source',
+    ['tagX'] // tags
 );
 
 if (isset($response['id'])) {
