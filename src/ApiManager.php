@@ -187,6 +187,15 @@ class ApiManager implements ApiManagerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getSubscriberGroups(string $email)
+    {
+        return $this->adapter->action('get', "/v3/receivers.json/{$email}/groups");
+    }
+
+
+    /**
      * Returns the HTTP adapter.
      *
      * @return HttpAdapter

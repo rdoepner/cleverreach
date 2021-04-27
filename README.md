@@ -166,3 +166,13 @@ if (true === $response) {
     // ...
 }
 ```
+
+**Get the groups a subscriber is in**
+
+```php
+$response = $apiManager->getSubscriberGroups('<EMAIL>');
+
+if (true === $response) {
+    // ...
+}
+```

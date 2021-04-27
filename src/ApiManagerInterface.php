@@ -134,4 +134,13 @@ interface ApiManagerInterface
      * @return mixed
      */
     public function replaceSubscriberTags(string $email, int $groupId, array $tags);
+
+    /**
+     * Retrieves an array of groups the given receiver is allocated to
+     *
+     * @param string $email
+     *
+     * @return mixed
+     */
+    public function getSubscriberGroups(string $email);
 }
