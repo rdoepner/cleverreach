@@ -29,7 +29,9 @@ class ApiManager implements ApiManagerInterface
         int $groupId,
         bool $active = false,
         array $attributes = [],
-        array $globalAttributes = []
+        array $globalAttributes = [],
+        string $source = null,
+        array $tags = []
     ) {
         $now = time();
 
@@ -40,8 +42,34 @@ class ApiManager implements ApiManagerInterface
                 'email' => $email,
                 'registered' => $now,
                 'activated' => $active ? $now : 0,
+                'source' => $source,
                 'attributes' => $attributes,
                 'global_attributes' => $globalAttributes,
+                'tags' => $tags
+            ]
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateSubscriber(
+        string $email,
+        int $groupId,
+        array $attributes = [],
+        array $globalAttributes = [],
+        string $source = null,
+        array $tags = []
+    ) {
+        
+        return $this->adapter->action(
+            'put',
+            "/v3/groups.json/{$groupId}/receivers/{$email}",
+            [
+                'source' => $source,
+                'attributes' => $attributes,
+                'global_attributes' => $globalAttributes,
+                'tags' => $tags
             ]
         );
     }
@@ -157,6 +185,15 @@ class ApiManager implements ApiManagerInterface
             ]
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubscriberGroups(string $email)
+    {
+        return $this->adapter->action('get', "/v3/receivers.json/{$email}/groups");
+    }
+
 
     /**
      * Returns the HTTP adapter.
