@@ -50,7 +50,29 @@ class ApiManagerTest extends TestCase
                 'salutation' => 'Mr.',
                 'firstname' => 'John',
                 'lastname' => 'Doe',
-            ]
+            ],
+            [],
+            'Random Source',
+            ['tag']
+        );
+
+        $this->assertArrayHasKey('email', $response);
+        $this->assertEquals('john.doe@example.org', $response['email']);
+    }
+
+    public function testUpdateSubscriber()
+    {
+        $response = self::$apiManager->updateSubscriber(
+            'john.doe@example.org',
+            self::$groupId,
+            [
+                'salutation' => 'Mr.',
+                'firstname' => 'John',
+                'lastname' => 'Doe',
+            ],
+            [],
+            'Random Source',
+            ['tag']
         );
 
         $this->assertArrayHasKey('email', $response);

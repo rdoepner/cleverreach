@@ -55,7 +55,31 @@ $response = $apiManager->createSubscriber(
         'salutation' => 'Mr.',
         'firstname' => 'John',
         'lastname' => 'Doe',
-    ]
+    ],
+    [], // global attributes
+    'Source',
+    ['tagX'] // tags
+);
+
+if (isset($response['id'])) {
+    // ...
+}
+```
+
+**Update a subscriber**
+
+```php
+$response = $apiManager->updateSubscriber(
+    '<EMAIL>',
+    '<GROUP_ID>',
+    [
+        'salutation' => 'Mr.',
+        'firstname' => 'John',
+        'lastname' => 'Doe',
+    ],
+    [], // global attributes
+    'Source',
+    ['tagX'] // tags
 );
 
 if (isset($response['id'])) {
@@ -137,6 +161,16 @@ if (true === $response) {
 
 ```php
 $response = $apiManager->replaceSubscriberTags('<EMAIL>', '<GROUP_ID>', ['<TAG1>', '<TAG2>', ...]);
+
+if (true === $response) {
+    // ...
+}
+```
+
+**Get the groups a subscriber is in**
+
+```php
+$response = $apiManager->getSubscriberGroups('<EMAIL>');
 
 if (true === $response) {
     // ...
