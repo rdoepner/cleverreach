@@ -18,10 +18,10 @@
     "require": {
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3 || ^7.0",
-        "psr/log": "^1.1"
+        "psr/log": "^1.1 || ^2.0  || ^3.0"
     },
     "require-dev": {
-        "monolog/monolog": "^1.24",
+        "monolog/monolog": "^1.24 || ^2.0  || ^3.0",
         "phpunit/phpunit": "^7.5",
         "symfony/dotenv": "^4.2"
     },
